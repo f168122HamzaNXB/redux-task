@@ -105,7 +105,10 @@ function Login() {
     let token = useSelector((state) => state.authReducer);
     const dispatch = useDispatch();
     let history = useHistory();
-    const onSubmit = async (data) => {
+    
+    const onSubmit = (data, e) => {
+        console.log(e);
+        // console.log(data, e);
         localStorage.setItem('token', token.token);
         dispatch(login(data.email, data.password));
         if (localStorage.getItem('token')){
@@ -125,14 +128,13 @@ function Login() {
             <Typography variant="h6" className={classes.title}>
                 STUDENT PORTAL
             </Typography>
-            {/*  */}
             <Button color="inherit"><Link to="/createstudent" className={classes.newStudentButton}>REGISTER</Link></Button>
          </Toolbar>
         </AppBar>
       <Grid container spacing={3} direction="column" alignItems="center" justifyContent="center">
         <Grid item xs={12}>
           <Paper className={classes.paperStyle} elevation={2} square>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Typography variant="h6" className={classes.title}>
                     LOGIN FORM
                 </Typography>
@@ -144,9 +146,9 @@ function Login() {
                   })}/><br/><br/><br/>
                 {errors.email && <p className={classes.errorStyle}>{errors.email.message}</p>}
                 <label className={classes.labelStyle} htmlFor="password">Password:</label>
-                <input className={classes.inputMargin} {...register("password", { required: "This is required", maxLength: 20 })} />
+                <input className={classes.inputMargin} type="password" {...register("password", { required: "This is required", maxLength: 20 })} />
                 {errors.password && <p className={classes.errorStyle}>{errors.password.message}</p>}
-                <input className={classes.buttonStyle} onClick={handleSubmit(onSubmit)} type="submit" name="Login"/>
+                <input className={classes.buttonStyle} type="submit" name="Login"/>
             </form>
           </Paper>
         </Grid>

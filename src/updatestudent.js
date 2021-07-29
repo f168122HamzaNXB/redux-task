@@ -126,8 +126,8 @@ function Update() {
       return () => setMount(false);
     }, [studentData]) 
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = (data, e) => {
+        console.log(data, e);
         dispatch(updateStudent(data, id));
         history.push("/all");
     };
@@ -170,7 +170,7 @@ function Update() {
                 {errors.email && <p className={classes.errorStyle}>{errors.email.message}</p>}
                 
                 <label className={classes.labelStyle} htmlFor="password">Password:</label>
-                <input className={classes.inputMargin} {...register("password", { required: "This is required", maxLength: 20 })} />
+                <input className={classes.inputMargin} type="password" {...register("password", { required: "This is required", maxLength: 20 })} />
                 {errors.password && <p className={classes.errorStyle}>{errors.password.message}</p>}
 
                 <label className={classes.labelStyle} htmlFor="designation">Designation:</label><br/>
